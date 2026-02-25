@@ -53,3 +53,21 @@ export interface IDrawCourt {
 export interface ICourtLines {
   [index: string]: ICourtLocation[];
 }
+
+export interface ShotData {
+  x: number;
+  y: number;
+  att: number;
+  made: number;
+  fg: number;
+  pts: number;
+  is3?: boolean;
+}
+
+export interface HoverState {
+  clientX: number;
+  clientY: number;
+  gx: number;
+  gy: number;
+  cell: ShotData | null;
+}
