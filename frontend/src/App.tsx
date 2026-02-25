@@ -14,9 +14,11 @@ function App() {
 
   const cellMap = useMemo(() => {
     const m = new Map<string, ShotData>();
-    for (const c of data.cells) m.set(`${c.x}:${c.y}`, c);
+    for (const c of data.cells) {
+      m.set(`${c.x}:${c.y}`, c);
+    }
     return m;
-  }, [data.cells]);
+  }, [data]);
 
   useEffect(() => {
     let svg = document.getElementById(id);
@@ -38,7 +40,7 @@ function App() {
     const gx = snapToGrid(x_ft, 1);
     const gy = snapToGrid(y_ft, 1);
 
-    const cell = cellMap.get(`${gx},${gy}`) ?? null;
+    const cell = cellMap.get(`${gx}:${gy}`) ?? null;
     setHover({
       clientX: e.clientX,
       clientY: e.clientY,
