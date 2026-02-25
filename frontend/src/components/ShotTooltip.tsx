@@ -14,7 +14,7 @@ export default function ShotTooltip({
   const left = clientX + 20;
   const top = clientY + 20;
 
-  const width = 190;
+  const width = 200;
 
   return (
     <div
@@ -43,7 +43,7 @@ export default function ShotTooltip({
       >
         <div style={{ fontWeight: 700 }}>Shot Zone</div>
         <div style={{ opacity: 0.75 }}>
-          {gx}, {gy} ft
+          {Math.sqrt(gx * gx + gy * gy).toFixed(1)} ft from basket ({gx},{gy})
         </div>
       </div>
 
