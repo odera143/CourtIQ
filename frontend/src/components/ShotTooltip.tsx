@@ -1,38 +1,20 @@
 import type { HoverState } from '../lib/halfcourt/Interfaces';
 
-function clamp(n: number, min: number, max: number) {
-  return Math.max(min, Math.min(max, n));
-}
-
 function formatPct(x: number) {
   return `${Math.round(x * 100)}%`;
 }
 
 export default function ShotTooltip({
   hover,
-  containerRef,
 }: {
   hover: NonNullable<HoverState>;
-  containerRef: React.RefObject<HTMLDivElement | null>;
 }) {
   const { clientX, clientY, cell, gx, gy } = hover;
 
-  const rect = containerRef.current?.getBoundingClientRect();
-  const left0 = rect ? clientX - rect.left : clientX;
-  const top0 = rect ? clientY - rect.top : clientY;
+  const left = clientX + 20;
+  const top = clientY + 20;
 
-  const offsetX = 12;
-  const offsetY = 12;
-
-  const width = 190; // approximate tooltip size for clamping
-  const height = 110;
-
-  const left = rect
-    ? clamp(left0 + offsetX, 8, rect.width - width - 8)
-    : left0 + offsetX;
-  const top = rect
-    ? clamp(top0 + offsetY, 8, rect.height - height - 8)
-    : top0 + offsetY;
+  const width = 190;
 
   return (
     <div

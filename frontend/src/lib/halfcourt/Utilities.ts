@@ -63,7 +63,7 @@ export function drawCourt(
   let base = d3
     .select(node.current)
     .attr('width', shotchartSettings.width)
-    .attr('viewBox', '-25 -5 51 52')
+    .attr('viewBox', '-25 -5 50 52')
     .append('g')
     .attr('class', 'shot-chart-court')
     .attr('fill', 'none')

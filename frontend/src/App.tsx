@@ -87,7 +87,7 @@ function App() {
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         />
-        {hover && <ShotTooltip hover={hover} containerRef={containerRef} />}
+        {hover && <ShotTooltip hover={hover} />}
       </div>
     </div>
   );

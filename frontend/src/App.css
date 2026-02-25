@@ -14,10 +14,10 @@
   background-color: rgb(51, 51, 51);
 }
 
-.halfcourt-container {
+/* .halfcourt-container {
   transform: rotate(90deg);
   transform-origin: center;
-}
+} */
 
 .container {
   display: flex;
