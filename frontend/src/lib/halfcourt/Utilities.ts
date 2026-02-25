@@ -63,7 +63,7 @@ export function drawCourt(
   let base = d3
     .select(node.current)
     .attr('width', shotchartSettings.width)
-    .attr('viewBox', '-25 -4 51 52')
+    .attr('viewBox', '-25 -5 51 52')
     .append('g')
     .attr('class', 'shot-chart-court')
     .attr('fill', 'none')
@@ -71,7 +71,7 @@ export function drawCourt(
     .attr('stroke-width', 0.3)
     .attr(
       'transform',
-      `scale(1, -1) translate(${-shotchartSettings.courtWidth / 2}, ${-shotchartSettings.visibleCourtLength() + 4})`,
+      `scale(1, -1) translate(${-shotchartSettings.courtWidth / 2}, ${-shotchartSettings.visibleCourtLength() + 5})`,
     );
   base
     .append('rect')

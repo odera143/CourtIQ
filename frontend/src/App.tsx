@@ -25,8 +25,8 @@ function App() {
     const x_ft = p.x;
     const y_ft = p.y;
 
-    const gx = snapToGrid(x_ft, 2);
-    const gy = snapToGrid(y_ft, 2);
+    const gx = snapToGrid(x_ft, 1);
+    const gy = snapToGrid(y_ft, 1);
     console.log(`Snapped to grid: x=${gx}, y=${gy}`);
   };
 
