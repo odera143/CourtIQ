@@ -14,7 +14,7 @@ export default function ShotTooltip({
   const left = clientX + 20;
   const top = clientY + 20;
 
-  const width = 200;
+  const width = 210;
 
   return (
     <div
@@ -67,7 +67,7 @@ export default function ShotTooltip({
               marginBottom: 4,
             }}
           >
-            <span style={{ opacity: 0.8 }}>Makes / Att</span>
+            <span style={{ opacity: 0.8 }}>Makes / Attempts</span>
             <span>
               {cell.made} / {cell.att}
             </span>
@@ -80,7 +80,7 @@ export default function ShotTooltip({
               marginBottom: 4,
             }}
           >
-            <span style={{ opacity: 0.8 }}>Expected pts</span>
+            <span style={{ opacity: 0.8 }}>Expected points</span>
             <span>{cell.pts.toFixed(2)}</span>
           </div>
         </>

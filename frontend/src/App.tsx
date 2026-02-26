@@ -2,17 +2,36 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import './App.css';
 import { SHOTCHART_SETTINGS, NBA_SETTINGS } from './lib/halfcourt/Constants';
 import { drawCourt } from './lib/halfcourt/Utilities';
-import * as data from './test-data/curry_2023.json';
+// import * as data from './test-data/curry_2023.json';
 import type { HoverState, ShotData } from './lib/halfcourt/Interfaces';
 import ShotTooltip from './components/ShotTooltip';
+import UserForm from './components/UserForm';
+import { useQuery } from '@tanstack/react-query';
 
 function App() {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [hover, setHover] = useState<HoverState | null>(null);
+  const [params, setParams] = useState<any>(null);
   const id = 'halfcourt';
 
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ['shotgrid'],
+    enabled: false,
+    queryFn: () =>
+      fetch(
+        `http://127.0.0.1:8000/api/shotgrid?${new URLSearchParams(params)}`,
+      ).then((res) => res.json()),
+  });
+
+  useEffect(() => {
+    console.log('params changed:', new URLSearchParams(params));
+    refetch();
+  }, [params]);
+
   const cellMap = useMemo(() => {
+    if (!data) return new Map<string, ShotData>();
+    console.log(data);
     const m = new Map<string, ShotData>();
     for (const c of data.cells) {
       m.set(`${c.x}:${c.y}`, c);
@@ -75,10 +94,7 @@ function App() {
 
   return (
     <div className='container'>
-      <div className='settings-container'>
-        <input placeholder='enter player'></input>
-        <input placeholder='enter season'></input>
-      </div>
+      <UserForm onSubmit={(params) => setParams(params)} />
       <div ref={containerRef} className='halfcourt-container'>
         <svg
           ref={svgRef}
