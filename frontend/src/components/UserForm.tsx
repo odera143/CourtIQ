@@ -32,7 +32,7 @@ const UserForm = ({ onSubmit }: { onSubmit: (params: any) => void }) => {
       player_id: selectedPlayer.id,
       season: selectedSeason,
       season_type: selectedSeasonType,
-      grid: '1',
+      grid: '5',
       min_att: '3',
     };
     onSubmit(params);
