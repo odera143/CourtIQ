@@ -1,0 +1,4 @@
+fastapi
+nba_api
+pandas
+uvicorn

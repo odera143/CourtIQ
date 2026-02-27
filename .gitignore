@@ -24,5 +24,4 @@ dist-ssr
 *.sw?
 /cache
 backend/__pycache__
-backend/requirements.txt
 backend/cache

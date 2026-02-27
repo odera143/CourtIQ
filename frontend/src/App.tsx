@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import './App.css';
 import { SHOTCHART_SETTINGS, NBA_SETTINGS } from './lib/halfcourt/Constants';
 import { drawCourt } from './lib/halfcourt/Utilities';
-// import * as data from './test-data/curry_2023.json';
 import type { HoverState, ShotData } from './lib/halfcourt/Interfaces';
 import ShotTooltip from './components/ShotTooltip';
 import UserForm from './components/UserForm';
@@ -25,8 +24,10 @@ function App() {
   });
 
   useEffect(() => {
-    console.log('params changed:', new URLSearchParams(params));
-    refetch();
+    if (params) {
+      console.log('params changed:', new URLSearchParams(params));
+      refetch();
+    }
   }, [params]);
 
   const cellMap = useMemo(() => {
