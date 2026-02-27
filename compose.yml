@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: probability-backend
+    ports:
+      - '8000:8000'
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - backend_cache:/app/cache
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: probability-frontend
+    ports:
+      - '5173:80'
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  backend_cache:
