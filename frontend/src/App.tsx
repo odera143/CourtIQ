@@ -96,15 +96,19 @@ function App() {
   return (
     <div className='container'>
       <UserForm onSubmit={(params) => setParams(params)} />
-      <div ref={containerRef} className='halfcourt-container'>
-        <svg
-          ref={svgRef}
-          width='100%'
-          id={id}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-        />
-        {hover && <ShotTooltip hover={hover} />}
+      <div>
+        {isLoading && <p>Loading...</p>}
+        {error && <p>Error loading shot data</p>}
+        <div ref={containerRef} className='halfcourt-container'>
+          <svg
+            ref={svgRef}
+            width='100%'
+            id={id}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          />
+          {hover && <ShotTooltip hover={hover} />}
+        </div>
       </div>
     </div>
   );
