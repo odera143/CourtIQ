@@ -14,9 +14,8 @@ function App() {
   const [params, setParams] = useState<any>(null);
   const id = 'halfcourt';
   const [hoverRect, setHoverRect] = useState<any>(null);
-
   //Grid resolution in ft (lower = more granular)
-  const gridFt = 5;
+  const [gridFt, setGridFt] = useState(5);
 
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['shotgrid'],
@@ -119,7 +118,11 @@ function App() {
 
   return (
     <div className='container'>
-      <UserForm onSubmit={(params) => setParams(params)} gridFt={gridFt} />
+      <UserForm
+        onSubmit={(params) => setParams(params)}
+        gridFt={gridFt}
+        setGridFt={setGridFt}
+      />
       <div>
         {isLoading && <p>Loading...</p>}
         {error && <p>Error loading shot data</p>}

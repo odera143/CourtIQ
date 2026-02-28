@@ -1,12 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import React, { useState, type SetStateAction, type Dispatch } from 'react';
 
 const UserForm = ({
   onSubmit,
   gridFt,
+  setGridFt,
 }: {
   onSubmit: (params: any) => void;
   gridFt: number;
+  setGridFt: Dispatch<SetStateAction<number>>;
 }) => {
   const [playerQuery, setPlayerQuery] = useState('');
   const [selectedPlayer, setSelectedPlayer] = useState<{
@@ -16,6 +18,7 @@ const UserForm = ({
   const [selectedSeason, setSelectedSeason] = useState<string>('2022-23');
   const [selectedSeasonType, setSelectedSeasonType] =
     useState<string>('Regular Season');
+  const [minAtt, setMinAtt] = useState<number>(3);
 
   const {
     data: playerData,
@@ -39,7 +42,7 @@ const UserForm = ({
       season: selectedSeason,
       season_type: selectedSeasonType,
       grid: gridFt.toString(),
-      min_att: '3',
+      min_att: minAtt.toString(),
     };
     onSubmit(params);
   };
@@ -48,8 +51,7 @@ const UserForm = ({
     <form className='settings-container' onSubmit={buildRequestParams}>
       <span>{`Player selected: ${selectedPlayer?.name ?? 'None'} (id: ${selectedPlayer?.id ?? 'None'})`}</span>
       <input
-        type='select'
-        placeholder='enter player'
+        placeholder='player name'
         value={playerQuery}
         onChange={(e) => {
           setPlayerQuery(e.target.value);
@@ -73,6 +75,8 @@ const UserForm = ({
         value={selectedSeason}
         onChange={(e) => setSelectedSeason(e.target.value)}
       >
+        <option value='2018-19'>2018-19</option>
+        <option value='2019-20'>2019-20</option>
         <option value='2020-21'>2020-21</option>
         <option value='2021-22'>2021-22</option>
         <option value='2022-23'>2022-23</option>
@@ -89,6 +93,18 @@ const UserForm = ({
         <option value='Regular Season'>Regular Season</option>
         <option value='Playoffs'>Playoffs</option>
       </select>
+      <input
+        type='number'
+        placeholder='minimum attempts per zone'
+        value={minAtt}
+        onChange={(e) => setMinAtt(Number(e.target.value))}
+      />
+      <input
+        type='number'
+        placeholder='zone size (ft)'
+        value={gridFt}
+        onChange={(e) => setGridFt(Number(e.target.value))}
+      />
       <button type='submit'>Submit</button>
     </form>
   );
