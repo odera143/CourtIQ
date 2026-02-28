@@ -1,7 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
-const UserForm = ({ onSubmit }: { onSubmit: (params: any) => void }) => {
+const UserForm = ({
+  onSubmit,
+  gridFt,
+}: {
+  onSubmit: (params: any) => void;
+  gridFt: number;
+}) => {
   const [playerQuery, setPlayerQuery] = useState('');
   const [selectedPlayer, setSelectedPlayer] = useState<{
     id: string;
@@ -32,7 +38,7 @@ const UserForm = ({ onSubmit }: { onSubmit: (params: any) => void }) => {
       player_id: selectedPlayer.id,
       season: selectedSeason,
       season_type: selectedSeasonType,
-      grid: '5',
+      grid: gridFt.toString(),
       min_att: '3',
     };
     onSubmit(params);
