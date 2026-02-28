@@ -13,6 +13,10 @@ function App() {
   const [hover, setHover] = useState<HoverState | null>(null);
   const [params, setParams] = useState<any>(null);
   const id = 'halfcourt';
+  const [hoverRect, setHoverRect] = useState<any>(null);
+
+  //Grid resolution in ft (lower = more granular)
+  const gridFt = 5;
 
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['shotgrid'],
@@ -44,7 +48,16 @@ function App() {
     let svg = document.getElementById(id);
     if (svg) svg.innerHTML = '';
     const chartSettings = SHOTCHART_SETTINGS(NBA_SETTINGS, 1);
-    drawCourt(chartSettings, svgRef);
+    const { overlay } = drawCourt(chartSettings, svgRef);
+
+    setHoverRect(
+      overlay
+        .append('rect')
+        .attr('class', '.zone-hover')
+        .attr('fill', 'transparent')
+        .attr('stroke', 'green')
+        .attr('stroke-width', 0.3),
+    );
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
@@ -57,8 +70,15 @@ function App() {
     const x_ft = p.x;
     const y_ft = p.y;
 
-    const gx = snapToGrid(x_ft, 5);
-    const gy = snapToGrid(y_ft, 5);
+    const gx = snapToGrid(x_ft);
+    const gy = snapToGrid(y_ft);
+
+    hoverRect
+      .style('display', null)
+      .attr('x', gx - gridFt / 2)
+      .attr('y', gy - gridFt / 2)
+      .attr('width', gridFt)
+      .attr('height', gridFt);
 
     const cell = cellMap.get(`${gx}:${gy}`) ?? null;
     setHover({
@@ -70,7 +90,10 @@ function App() {
     });
   };
 
-  const handleMouseLeave = () => setHover(null);
+  const handleMouseLeave = () => {
+    setHover(null);
+    hoverRect.style('display', 'none');
+  };
 
   const getSvgPoint = (
     svg: SVGSVGElement,
@@ -89,13 +112,14 @@ function App() {
     return { x: svgP.x, y: svgP.y }; // in feet
   };
 
-  const snapToGrid = (value: number, gridFt: number) => {
-    return Math.round(value / gridFt) * gridFt;
+  const snapToGrid = (value: number) => {
+    const snapped = Math.round(value / gridFt) * gridFt;
+    return snapped === -0 ? 0 : snapped; // handle -0 case
   };
 
   return (
     <div className='container'>
-      <UserForm onSubmit={(params) => setParams(params)} />
+      <UserForm onSubmit={(params) => setParams(params)} gridFt={gridFt} />
       <div>
         {isLoading && <p>Loading...</p>}
         {error && <p>Error loading shot data</p>}

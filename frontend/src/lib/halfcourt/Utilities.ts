@@ -300,5 +300,14 @@ export function drawCourt(
     )
     .attr('r', shotchartSettings.basketDiameter / 2);
 
-  return { base, courtLines };
+  base
+    .append('rect')
+    .attr('class', 'shot-chart-court-outer-boundary')
+    .attr('x', 0)
+    .attr('y', -5)
+    .attr('width', shotchartSettings.courtWidth)
+    .attr('height', shotchartSettings.visibleCourtLength() + 5);
+
+  const overlay = d3.select(node.current).append('g');
+  return { base, courtLines, overlay };
 }

@@ -48,6 +48,7 @@ export interface ICourt {
 export interface IDrawCourt {
   base: any;
   courtLines: ICourtLines;
+  overlay: any;
 }
 
 export interface ICourtLines {
