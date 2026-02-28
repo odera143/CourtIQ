@@ -67,9 +67,9 @@ def shotgrid(
     df = data.copy()
     df["made"] = df["SHOT_MADE_FLAG"].astype(int)
 
-    # Convert NBA Stats shot chart coords (inches) -> feet
-    df["x_ft"] = df["LOC_X"] / 12.0
-    df["y_ft"] = df["LOC_Y"] / 12.0
+    # Convert NBA Stats shot chart coords (NBA records in tenths of a foot)
+    df["x_ft"] = df["LOC_X"] / 10
+    df["y_ft"] = df["LOC_Y"] / 10
 
     # Bin to grid in feet
     df["gx"] = (df["x_ft"] / grid).round().astype(int) * grid
