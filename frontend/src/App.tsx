@@ -6,6 +6,7 @@ import type { HoverState, ShotData } from './lib/halfcourt/Interfaces';
 import ShotTooltip from './components/ShotTooltip';
 import UserForm from './components/UserForm';
 import { useQuery } from '@tanstack/react-query';
+import { Alert } from 'react-bootstrap';
 
 function App() {
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -125,8 +126,11 @@ function App() {
       />
       <div>
         {isLoading && <p>Loading...</p>}
-        {error && <p>Error loading shot data</p>}
-        <div ref={containerRef} className='halfcourt-container'>
+        {error && <Alert variant='danger'>Error loading shot data</Alert>}
+        <div
+          ref={containerRef}
+          className='halfcourt-container border border-secondary'
+        >
           <svg
             ref={svgRef}
             width='100%'
