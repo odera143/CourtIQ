@@ -11,6 +11,7 @@ const UserForm = ({
   gridFt: number;
   setGridFt: Dispatch<SetStateAction<number>>;
 }) => {
+  const API_HOST = import.meta.env.VITE_API_HOST ?? 'http://127.0.0.1:8000';
   const [playerQuery, setPlayerQuery] = useState('');
   const [selectedPlayer, setSelectedPlayer] = useState<{
     id: string;
@@ -30,7 +31,7 @@ const UserForm = ({
     queryKey: ['players'],
     enabled: false,
     queryFn: () =>
-      fetch(`http://127.0.0.1:8000/api/players?q=${playerQuery}`).then((res) =>
+      fetch(`${API_HOST}/api/players?q=${playerQuery}`).then((res) =>
         res.json(),
       ),
   });
@@ -169,3 +170,4 @@ const UserForm = ({
   );
 };
 export default UserForm;
+
