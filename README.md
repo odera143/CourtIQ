@@ -1,6 +1,6 @@
 # CourtIQ
 
-Visualize NBA players' efficiency from various spots in the half-court. Leveraging the `nba_api` package.
+Visualize NBA players' efficiency from various spots in the half-court. Leveraging `nba_api` and [shotchart.d3.ts](https://github.com/michaelmirandi/shotchart.d3.ts).
 
 ## To Run
 
